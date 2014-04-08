@@ -29,7 +29,7 @@ schedule_round1([],_,[]).
 schedule_round1(L,Rn,R):-member(S1,L),list_min(L,S1),member(S2,L),S1<S2, S2+S1 =\= 3,delete(L,S1,L2),delete(L2,S2,L1),schedule_round1(L1,Rn,R1),R=[game(S1,S2,Rn)|R1].
 
 schedule_rounds(2,[R]):-schedule_round(2,R).
-schedule_rounds(X,R):- schedule_round(X,R1),X1 is X//2,winners(R1,W), schedule_rounds_helper(X1,W,R2),append([R1],R2,R).
+schedule_rounds(X,R):- schedule_round(X,R1),X1 is X//2, schedule_rounds(X1,R2),append([R1],R2,R).
 
 schedule_rounds_helper(2,_,[R]):-schedule_round(2,R).
 schedule_rounds_helper(N,W,R):-schedule_round_W(N,W,R1),N1 is N//2,winners(R1,W1), schedule_rounds_helper(N1,W1,R2),append([R1],R2,R).
